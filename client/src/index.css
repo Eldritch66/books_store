@@ -1,0 +1,112 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  list-style: none;
+}
+
+body {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+}
+
+h1 {
+  font-size: 2rem;
+  color: #000000;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+hr {
+  border: 1px solid #ccc;
+}
+
+span {
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.openCart {
+  font-size: 2rem;
+  cursor: pointer;
+  color: #008cba;
+}
+
+.book-container {
+  height: 80vh;
+  width: 840px;
+  margin-bottom: 10rem;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  border-right: 1px solid #ccc;
+}
+
+.book-list {
+  cursor: pointer;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  width: auto;
+  margin: 0.7rem;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+}
+
+.book-img img {
+  width: 100px;
+  height: 150px;
+  object-fit: cover;
+  margin-top: 1rem;
+}
+
+.detail-header {
+  text-align: center;
+  margin: 2rem 2rem;
+}
+.detail-container {
+  margin-top: 2rem;
+  width: 840px;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 2rem;
+}
+
+.detail-img {
+  display: flex;
+  flex-direction: start;
+}
+.detail-img img {
+  width: 200px;
+  height: 300px;
+  object-fit: cover;
+}
+
+.detail-info {
+  display: flex;
+  flex-direction: column;
+  margin-left: 2rem;
+}
+
+.addToCart {
+  background-color: #008cba;
+  border: none;
+  color: white;
+  padding: 10px 24px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin-top: 1rem;
+  margin-left: 1rem;
+  cursor: pointer;
+  border-radius: 5px;
+}
