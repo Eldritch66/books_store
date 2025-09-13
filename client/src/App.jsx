@@ -66,6 +66,20 @@ function App() {
       <header>
         <h1>Welcome To Book Store</h1>
       </header>
+      {isCartOpen === true ? (
+        <FaBackspace
+          className="openCart"
+          onClick={() => dispatch({ type: "openCart" })}
+        />
+      ) : (
+        <MdOutlineShoppingCart
+          className="openCart"
+          onClick={() => {
+            // setIsCartOpen(true);
+            dispatch({ type: "openCart" });
+          }}
+        />
+      )}
 
       <BookContainer
         isCartOpen={isCartOpen}
@@ -125,7 +139,7 @@ function BookContainer({ isCartOpen, cart, dataBook, dispatch }) {
 }
 
 function DetailContainer({ children }) {
-  return { children };
+  return <>{children}</>;
 }
 
 function DetailBook({ bookInfo, dispatch }) {
