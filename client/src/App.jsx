@@ -1,36 +1,66 @@
-import { useEffect } from "react";
-import { useState } from "react";
+import { useEffect, useReducer } from "react";
 import { FaCartArrowDown, FaLessThan } from "react-icons/fa6";
 import { FaBackspace } from "react-icons/fa";
 import { MdOutlineShoppingCart } from "react-icons/md";
 
+const initialState = {
+  dataBook: [],
+  selectBook: null,
+  detail: [],
+  isCartOpen: false,
+  cart: [],
+};
+
+function reducer(state, action) {
+  switch (action.type) {
+    case "dataReceived":
+      return { ...state, dataBook: action.payload };
+    case "openCart":
+      return { ...state, isCartOpen: !state.isCartOpen };
+    case "handleDetail": {
+      if (state.selectBook === action.payload.id) {
+        return { ...state, selectBook: null, detail: null };
+      }
+      return {
+        ...state,
+        selectBook: action.payload.id,
+        detail: action.payload,
+      };
+    }
+    case "handleCart": {
+      // const existing = cart.find((item) => item.id === detail.id);
+      const existing = state.cart.find((item) => item.id === state.detail.id);
+      if (existing) {
+        return {
+          ...state,
+          cart: state.cart.map((item) =>
+            item.id === state.detail.id ? { ...item, qty: item.qty + 1 } : item
+          ),
+        };
+      }
+      return { ...state, cart: [...state.cart, { ...state.detail, qty: 1 }] };
+    }
+  }
+}
+
 function App() {
-  const [databook, setDatabook] = useState([]);
-  const [selectBook, setSelectBook] = useState(null);
-  const [detail, setDetail] = useState([]);
-  const [isCartOpen, setIsCartOpen] = useState(false);
-  const [cart, setCart] = useState([]);
+  const [{ dataBook, selectBook, detail, isCartOpen, cart }, dispatch] =
+    useReducer(reducer, initialState);
 
   useEffect(() => {
     async function fetchData() {
-      const response = await fetch("http://localhost:3000/books");
-      const data = await response.json();
-      setDatabook(data);
+      try {
+        const response = await fetch("http://localhost:3000/books");
+        if (!response.ok) throw new Error("Failed to fetch");
+        const data = await response.json();
+
+        dispatch({ type: "dataReceived", payload: data });
+      } catch (err) {
+        dispatch({ type: "error", payload: err.message });
+      }
     }
     fetchData();
   }, []);
-  // console.log(databook);
-
-  function handleDetail(book) {
-    if (selectBook === book.id) {
-      setSelectBook(null);
-      setDetail([]);
-      return;
-    }
-    setSelectBook(book.id);
-    setDetail(book);
-    console.log(book);
-  }
 
   return (
     <>
@@ -41,13 +71,14 @@ function App() {
       {isCartOpen === true ? (
         <FaBackspace
           className="openCart"
-          onClick={() => setIsCartOpen(false)}
+          onClick={() => dispatch({ type: "openCart" })}
         />
       ) : (
         <MdOutlineShoppingCart
           className="openCart"
           onClick={() => {
-            setIsCartOpen(true);
+            // setIsCartOpen(true);
+            dispatch({ type: "openCart" });
           }}
         />
       )}
@@ -70,9 +101,13 @@ function App() {
             )}
           </div>
         ) : (
-          databook.map((book) => (
+          dataBook.map((book) => (
             <ul className="book-list" key={book.id}>
-              <li onClick={() => handleDetail(book)}>
+              <li
+                onClick={() =>
+                  dispatch({ type: "handleDetail", payload: book })
+                }
+              >
                 <main className="book-title">
                   {book.title.length > 20
                     ? book.title.slice(0, 20) + "..."
@@ -90,28 +125,13 @@ function App() {
 
       <hr />
       <section className="detail-book">
-        {selectBook && <DetailBook bookInfo={detail} setCart={setCart} />}
+        {selectBook && <DetailBook bookInfo={detail} dispatch={dispatch} />}
       </section>
     </>
   );
 }
 
-function DetailBook({ bookInfo, setCart }) {
-  function handleCart(bookInfo) {
-    setCart((prevCart) => {
-      const existing = prevCart.find((item) => item.id === bookInfo.id);
-
-      if (existing) {
-        return prevCart.map((item) =>
-          item.id === bookInfo.id ? { ...item, qty: item.qty + 1 } : item
-        );
-      }
-
-      alert(`Book ${bookInfo.title} added to cart`);
-      return [...prevCart, { ...bookInfo, qty: 1 }];
-    });
-  }
-
+function DetailBook({ bookInfo, dispatch }) {
   return (
     <>
       <header className="detail-header">
@@ -140,7 +160,10 @@ function DetailBook({ bookInfo, setCart }) {
           </p>
         </div>
 
-        <button className="addToCart" onClick={() => handleCart(bookInfo)}>
+        <button
+          className="addToCart"
+          onClick={() => dispatch({ type: "handleCart", payload: 1 })}
+        >
           <FaCartArrowDown />
         </button>
       </div>
