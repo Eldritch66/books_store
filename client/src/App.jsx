@@ -28,7 +28,6 @@ function reducer(state, action) {
       };
     }
     case "handleCart": {
-      // const existing = cart.find((item) => item.id === detail.id);
       const existing = state.cart.find((item) => item.id === state.detail.id);
       if (existing) {
         return {
@@ -68,67 +67,65 @@ function App() {
         <h1>Welcome To Book Store</h1>
       </header>
 
-      {isCartOpen === true ? (
-        <FaBackspace
-          className="openCart"
-          onClick={() => dispatch({ type: "openCart" })}
-        />
-      ) : (
-        <MdOutlineShoppingCart
-          className="openCart"
-          onClick={() => {
-            // setIsCartOpen(true);
-            dispatch({ type: "openCart" });
-          }}
-        />
-      )}
-
-      <section className="book-container">
-        {isCartOpen ? (
-          <div className="cart">
-            <h2>Cart Items</h2>
-            {cart.length === 0 ? (
-              <p>Your cart is empty</p>
-            ) : (
-              <ul>
-                {cart.map((item, index) => (
-                  <li key={index}>
-                    Book Title: {item.title} | quantity:
-                    <strong>{item.qty}</strong>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </div>
-        ) : (
-          dataBook.map((book) => (
-            <ul className="book-list" key={book.id}>
-              <li
-                onClick={() =>
-                  dispatch({ type: "handleDetail", payload: book })
-                }
-              >
-                <main className="book-title">
-                  {book.title.length > 20
-                    ? book.title.slice(0, 20) + "..."
-                    : book.title}
-                </main>
-
-                <div className="book-img">
-                  <img src={book.img} alt="" />
-                </div>
-              </li>
-            </ul>
-          ))
-        )}
-      </section>
+      <BookContainer
+        isCartOpen={isCartOpen}
+        cart={cart}
+        dataBook={dataBook}
+        dispatch={dispatch}
+      />
 
       <hr />
-      <section className="detail-book">
+      <DetailContainer>
         {selectBook && <DetailBook bookInfo={detail} dispatch={dispatch} />}
-      </section>
+      </DetailContainer>
     </>
   );
+}
+
+function BookContainer({ isCartOpen, cart, dataBook, dispatch }) {
+  return (
+    <section className="book-container">
+      {isCartOpen ? (
+        <div className="cart">
+          <h2>Cart Items</h2>
+          {cart.length === 0 ? (
+            <p>Your cart is empty</p>
+          ) : (
+            <ul>
+              {cart.map((item, index) => (
+                <li key={index}>
+                  Book Title: {item.title} | quantity:
+                  <strong>{item.qty}</strong>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      ) : (
+        dataBook.map((book) => (
+          <ul className="book-list" key={book.id}>
+            <li
+              onClick={() => dispatch({ type: "handleDetail", payload: book })}
+            >
+              <main className="book-title">
+                {book.title.length > 20
+                  ? book.title.slice(0, 20) + "..."
+                  : book.title}
+              </main>
+
+              <div className="book-img">
+                <img src={book.img} alt="" />
+              </div>
+            </li>
+          </ul>
+        ))
+      )}
+    </section>
+  );
+}
+
+function DetailContainer({ children }) {
+  return { children };
 }
 
 function DetailBook({ bookInfo, dispatch }) {
