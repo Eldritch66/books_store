@@ -89,9 +89,7 @@ function App() {
       />
 
       <hr />
-      <DetailContainer>
-        {selectBook && <DetailBook bookInfo={detail} dispatch={dispatch} />}
-      </DetailContainer>
+      {selectBook && <DetailBook bookInfo={detail} dispatch={dispatch} />}
     </>
   );
 }
@@ -136,10 +134,6 @@ function BookContainer({ isCartOpen, cart, dataBook, dispatch }) {
       )}
     </section>
   );
-}
-
-function DetailContainer({ children }) {
-  return <>{children}</>;
 }
 
 function DetailBook({ bookInfo, dispatch }) {

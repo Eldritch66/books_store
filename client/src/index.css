@@ -37,20 +37,6 @@ span {
   color: #008cba;
 }
 
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 840px;
-  margin-bottom: 1rem;
-}
-
-.openCart {
-  font-size: 2rem;
-  cursor: pointer;
-  color: #008cba;
-}
-
 .book-container {
   height: 80vh;
   width: 840px;

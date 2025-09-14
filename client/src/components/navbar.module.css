@@ -1,0 +1,13 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 840px;
+  margin-bottom: 0.5rem;
+}
+
+.openCart {
+  font-size: 2rem;
+  cursor: pointer;
+  color: #008cba;
+}
