@@ -1,12 +1,12 @@
+import { BrowserRouter, Route, Routes } from "react-router";
 import { useEffect, useReducer } from "react";
-import { FaCartArrowDown, FaLessThan } from "react-icons/fa6";
-import { FaBackspace } from "react-icons/fa";
-import { MdOutlineShoppingCart } from "react-icons/md";
+import BookContainer from "./pages/BookContainer";
+import Detail from "./pages/DetailBook";
+import Cart from "./pages/Cart";
+import Navbar from "./components/Navbar";
 
 const initialState = {
   dataBook: [],
-  selectBook: null,
-  detail: [],
   isCartOpen: false,
   cart: [],
 };
@@ -43,8 +43,10 @@ function reducer(state, action) {
 }
 
 function App() {
-  const [{ dataBook, selectBook, detail, isCartOpen, cart }, dispatch] =
-    useReducer(reducer, initialState);
+  const [{ dataBook, isCartOpen, cart }, dispatch] = useReducer(
+    reducer,
+    initialState
+  );
 
   useEffect(() => {
     async function fetchData() {
@@ -62,123 +64,31 @@ function App() {
   }, []);
 
   return (
-    <>
+    <BrowserRouter>
       <header>
         <h1>Welcome To Book Store</h1>
+        <Navbar />
       </header>
-      {isCartOpen === true ? (
-        <FaBackspace
-          className="openCart"
-          onClick={() => dispatch({ type: "openCart" })}
+
+      <Routes>
+        <Route
+          index
+          element={
+            <BookContainer
+              isCartOpen={isCartOpen}
+              cart={cart}
+              dataBook={dataBook}
+              dispatch={dispatch}
+            />
+          }
         />
-      ) : (
-        <MdOutlineShoppingCart
-          className="openCart"
-          onClick={() => {
-            // setIsCartOpen(true);
-            dispatch({ type: "openCart" });
-          }}
+        <Route
+          path="/detail/:id"
+          element={<Detail dataBook={dataBook} dispatch={dispatch} />}
         />
-      )}
-
-      <BookContainer
-        isCartOpen={isCartOpen}
-        cart={cart}
-        dataBook={dataBook}
-        dispatch={dispatch}
-      />
-
-      <hr />
-      <DetailContainer>
-        {selectBook && <DetailBook bookInfo={detail} dispatch={dispatch} />}
-      </DetailContainer>
-    </>
-  );
-}
-
-function BookContainer({ isCartOpen, cart, dataBook, dispatch }) {
-  return (
-    <section className="book-container">
-      {isCartOpen ? (
-        <div className="cart">
-          <h2>Cart Items</h2>
-          {cart.length === 0 ? (
-            <p>Your cart is empty</p>
-          ) : (
-            <ul>
-              {cart.map((item, index) => (
-                <li key={index}>
-                  Book Title: {item.title} | quantity:
-                  <strong>{item.qty}</strong>
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
-      ) : (
-        dataBook.map((book) => (
-          <ul className="book-list" key={book.id}>
-            <li
-              onClick={() => dispatch({ type: "handleDetail", payload: book })}
-            >
-              <main className="book-title">
-                {book.title.length > 20
-                  ? book.title.slice(0, 20) + "..."
-                  : book.title}
-              </main>
-
-              <div className="book-img">
-                <img src={book.img} alt="" />
-              </div>
-            </li>
-          </ul>
-        ))
-      )}
-    </section>
-  );
-}
-
-function DetailContainer({ children }) {
-  return <>{children}</>;
-}
-
-function DetailBook({ bookInfo, dispatch }) {
-  return (
-    <>
-      <header className="detail-header">
-        <h2>{bookInfo.title}</h2>
-      </header>
-      <div className="detail-container">
-        <div className="detail-img">
-          <img src={bookInfo.img} alt="" />
-        </div>
-        <div className="detail-info">
-          <span>
-            Author: <br />
-            {bookInfo.author}
-          </span>
-          <span>
-            Genre: <br />
-            {bookInfo.genre}
-          </span>
-          <span>
-            Release: <br />
-            {bookInfo.release_date}
-          </span>
-          <p>
-            Summary: <br />
-            {bookInfo.summary}
-          </p>
-        </div>
-
-        <button
-          className="addToCart"
-          onClick={() => dispatch({ type: "handleCart", payload: 1 })}
-        >
-          <FaCartArrowDown />
-        </button>
-      </div>
-    </>
+        <Route path="/cart" element={<Cart cart={cart} />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
