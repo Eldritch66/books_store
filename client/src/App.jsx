@@ -72,7 +72,7 @@ function App() {
 
       <Routes>
         <Route
-          index
+          path="/"
           element={
             <BookContainer
               isCartOpen={isCartOpen}
