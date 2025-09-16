@@ -1,59 +1,20 @@
 import { BrowserRouter, Route, Routes } from "react-router";
-import { useEffect, useReducer } from "react";
+import { useEffect } from "react";
 import BookContainer from "./pages/BookContainer";
 import Detail from "./pages/DetailBook";
 import Cart from "./pages/Cart";
 import Navbar from "./components/Navbar";
-
-const initialState = {
-  dataBook: [],
-  isCartOpen: false,
-  cart: [],
-};
-
-function reducer(state, action) {
-  switch (action.type) {
-    case "dataReceived":
-      return { ...state, dataBook: action.payload };
-    case "openCart":
-      return { ...state, isCartOpen: !state.isCartOpen };
-    case "handleDetail": {
-      if (state.selectBook === action.payload.id) {
-        return { ...state, selectBook: null, detail: null };
-      }
-      return {
-        ...state,
-        selectBook: action.payload.id,
-        detail: action.payload,
-      };
-    }
-    case "handleCart": {
-      const existing = state.cart.find((item) => item.id === state.detail.id);
-      if (existing) {
-        return {
-          ...state,
-          cart: state.cart.map((item) =>
-            item.id === state.detail.id ? { ...item, qty: item.qty + 1 } : item
-          ),
-        };
-      }
-      return { ...state, cart: [...state.cart, { ...state.detail, qty: 1 }] };
-    }
-  }
-}
+import { useAppContext } from "./context/useAppContext";
 
 function App() {
-  const [{ dataBook, isCartOpen, cart }, dispatch] = useReducer(
-    reducer,
-    initialState
-  );
-
+  const { dispatch } = useAppContext();
   useEffect(() => {
     async function fetchData() {
       try {
         const response = await fetch("http://localhost:3000/books");
         if (!response.ok) throw new Error("Failed to fetch");
         const data = await response.json();
+        console.log("Fetched data:", data);
 
         dispatch({ type: "dataReceived", payload: data });
       } catch (err) {
@@ -61,7 +22,7 @@ function App() {
       }
     }
     fetchData();
-  }, []);
+  }, [dispatch]);
 
   return (
     <BrowserRouter>
@@ -71,22 +32,9 @@ function App() {
       </header>
 
       <Routes>
-        <Route
-          path="/"
-          element={
-            <BookContainer
-              isCartOpen={isCartOpen}
-              cart={cart}
-              dataBook={dataBook}
-              dispatch={dispatch}
-            />
-          }
-        />
-        <Route
-          path="/detail/:id"
-          element={<Detail dataBook={dataBook} dispatch={dispatch} />}
-        />
-        <Route path="/cart" element={<Cart cart={cart} />} />
+        <Route path="/" element={<BookContainer />} />
+        <Route path="/detail/:id" element={<Detail />} />
+        <Route path="/cart" element={<Cart />} />
       </Routes>
     </BrowserRouter>
   );

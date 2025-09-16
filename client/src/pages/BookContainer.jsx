@@ -1,10 +1,16 @@
 import { Link } from "react-router";
+import { useAppContext } from "../context/useAppContext";
 
-export default function BookContainer({ dataBook, dispatch }) {
+export default function BookContainer() {
+  const { state, dispatch } = useAppContext();
+  // console.log("dataBook:", dataBook);
+  console.log("useAppContext:", useAppContext());
+
+  console.log(state.dataBook);
   return (
     <>
       <section className="book-container">
-        {dataBook.map((book) => (
+        {state.dataBook.map((book) => (
           <Link className="list-style" to={`/detail/${book.id}`} key={book.id}>
             <ul className="book-list">
               <li

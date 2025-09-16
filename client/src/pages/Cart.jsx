@@ -1,4 +1,9 @@
-export default function Cart({ cart }) {
+import { useAppContext } from "../context/useAppContext";
+
+export default function Cart() {
+  const { state } = useAppContext();
+
+  const { cart } = state;
   return (
     <section className="book-container">
       <header className="detail-header">

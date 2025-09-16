@@ -1,8 +1,12 @@
 import { useParams } from "react-router";
 import { FaCartArrowDown } from "react-icons/fa6";
+import { useAppContext } from "../context/useAppContext";
 
-export default function Detail({ dataBook, dispatch }) {
+export default function Detail() {
+  const { state, dispatch } = useAppContext();
   const { id } = useParams();
+  // const dataBook = state.dataBook;
+  const { dataBook } = state;
 
   const bookInfo = dataBook.find((book) => book.id.toString() === id);
 
