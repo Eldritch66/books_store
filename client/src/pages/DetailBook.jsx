@@ -1,9 +1,11 @@
 import { useParams } from "react-router";
 import { FaCartArrowDown } from "react-icons/fa6";
 import { useAppContext } from "../context/useAppContext";
+import { useState } from "react";
 
 export default function Detail() {
   const { state, dispatch } = useAppContext();
+  const [isModal, setModal] = useState(false);
   const { id } = useParams();
   // const dataBook = state.dataBook;
   const { dataBook } = state;
@@ -16,6 +18,24 @@ export default function Detail() {
 
   return (
     <>
+      <div className={`modal-${isModal ? "show" : "hide"}`}>
+        <div className="modal-content">
+          <button
+            className="modal-button-close"
+            onClick={() => setModal(!isModal)}
+          >
+            &times;
+          </button>
+          <div className="modalTitle">
+            <strong>Book: </strong>
+            <h4>
+              {bookInfo.title} <br />
+            </h4>
+            <hr className="lineModal" />
+            <span className="nontificationModal">already add to cart!</span>
+          </div>
+        </div>
+      </div>
       <header className="detail-header">
         <h2>{bookInfo.title}</h2>
       </header>
@@ -44,7 +64,10 @@ export default function Detail() {
 
         <button
           className="addToCart"
-          onClick={() => dispatch({ type: "handleCart", payload: 1 })}
+          onClick={() => {
+            setModal(true);
+            dispatch({ type: "handleCart", payload: bookInfo });
+          }}
         >
           <FaCartArrowDown />
         </button>

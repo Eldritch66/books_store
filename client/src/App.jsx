@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import BookContainer from "./pages/BookContainer";
 import Detail from "./pages/DetailBook";
 import Cart from "./pages/Cart";
-import Navbar from "./components/Navbar";
+import Header from "./components/Header";
 import { useAppContext } from "./context/useAppContext";
 
 function App() {
@@ -26,11 +26,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      <header>
-        <h1>Welcome To Book Store</h1>
-        <Navbar />
-      </header>
-
+      <Header />
       <Routes>
         <Route path="/" element={<BookContainer />} />
         <Route path="/detail/:id" element={<Detail />} />

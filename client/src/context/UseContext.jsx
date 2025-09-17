@@ -26,16 +26,20 @@ function reducer(state, action) {
       };
     }
     case "handleCart": {
-      const existing = state.cart.find((item) => item.id === state.detail.id);
+      if (!state.cart) return state;
+      const book = action.payload;
+
+      const existing = state.cart.find((item) => item.id === book.id);
       if (existing) {
         return {
           ...state,
           cart: state.cart.map((item) =>
-            item.id === state.detail.id ? { ...item, qty: item.qty + 1 } : item
+            item.id === book.id ? { ...item, qty: item.qty + 1 } : item
           ),
         };
       }
-      return { ...state, cart: [...state.cart, { ...state.detail, qty: 1 }] };
+
+      return { ...state, cart: [...state.cart, { ...book, qty: 1 }] };
     }
   }
 }

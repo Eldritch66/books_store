@@ -20,7 +20,6 @@ h1 {
 
 header {
   text-align: center;
-  margin-bottom: 2rem;
 }
 hr {
   border: 1px solid #ccc;
@@ -108,4 +107,63 @@ span {
   margin-left: 1rem;
   cursor: pointer;
   border-radius: 5px;
+}
+
+.modal-hide {
+  display: none;
+}
+
+.modal-show {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  z-index: 1;
+  width: 840px;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.modal-content {
+  position: relative;
+  display: flex;
+  letter-spacing: 0.2rem;
+  flex-direction: row-reverse;
+  align-items: center;
+  color: #fff;
+  width: 520px;
+  height: 100px;
+  margin-bottom: 10rem;
+  border: 1px solid white;
+}
+
+.modal-button-close {
+  all: unset;
+  cursor: pointer;
+  font-size: 2rem;
+  padding: 30px 20px 30px 20px;
+  background-color: #00a5dc;
+  box-sizing: border-box;
+}
+
+.modal-button-close:hover {
+  background-color: #004156;
+  color: #000000;
+  transition: ease-in-out 0.9s;
+}
+
+.modalTitle {
+  margin-left: 2rem;
+  position: absolute;
+  left: 0;
+  font-size: 1rem;
+}
+
+.lineModal {
+  margin: 0.5rem 0 0.5rem 0;
+  width: 400px;
+}
+.nontificationModal {
+  font-style: italic;
+  color: #fff;
 }
