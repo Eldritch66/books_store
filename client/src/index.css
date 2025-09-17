@@ -25,12 +25,6 @@ hr {
   border: 1px solid #ccc;
 }
 
-span {
-  margin: 0.5rem 0;
-  font-size: 0.9rem;
-  color: #555;
-}
-
 .list-style {
   text-decoration: none;
   color: #008cba;
@@ -94,6 +88,12 @@ span {
   margin-left: 2rem;
 }
 
+.span-detail {
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+  color: #555;
+}
+
 .addToCart {
   background-color: #008cba;
   border: none;
@@ -153,7 +153,8 @@ span {
 }
 
 .modalTitle {
-  margin-left: 2rem;
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
   position: absolute;
   left: 0;
   font-size: 1rem;

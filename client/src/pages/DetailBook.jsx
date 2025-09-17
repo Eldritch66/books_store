@@ -44,22 +44,30 @@ export default function Detail() {
           <img src={bookInfo.img} alt="" />
         </div>
         <div className="detail-info">
-          <span>
-            Author: <br />
+          <span className="span-detail">
+            <strong>
+              Author: <br />
+            </strong>
             {bookInfo.author}
           </span>
-          <span>
-            Genre: <br />
+          <span className="span-detail">
+            <strong>
+              Genre: <br />
+            </strong>
             {bookInfo.genre}
           </span>
-          <span>
-            Release: <br />
+          <span className="span-detail">
+            <strong>
+              Release: <br />
+            </strong>
             {bookInfo.release_date}
           </span>
-          <p>
-            Summary: <br />
-            {bookInfo.summary}
-          </p>
+          <span className="span-detail">
+            <strong>
+              Summary: <br />
+            </strong>
+            <p>{bookInfo.summary}</p>
+          </span>
         </div>
 
         <button
