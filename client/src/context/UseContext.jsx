@@ -39,7 +39,42 @@ function reducer(state, action) {
         };
       }
 
-      return { ...state, cart: [...state.cart, { ...book, qty: 1 }] };
+      return {
+        ...state,
+        cart: [...state.cart, { ...book, qty: 1 }],
+      };
+    }
+    case "incQty": {
+      const incItem = action.payload;
+      return {
+        ...state,
+        cart: state.cart.map((item) =>
+          incItem.id === item.id ? { ...item, qty: item.qty + 1 } : item
+        ),
+      };
+    }
+
+    case "decQty": {
+      const decItem = action.payload;
+      return {
+        ...state,
+        cart: state.cart.map((item) =>
+          decItem.id === item.id
+            ? { ...item, qty: item.qty > 1 ? item.qty - 1 : 1 }
+            : item
+        ),
+      };
+    }
+
+    case "deleteItem": {
+      const cartDelete = state.cart.filter(
+        (item) => item.id !== action.payload
+      );
+
+      return {
+        ...state,
+        cart: cartDelete,
+      };
     }
   }
 }

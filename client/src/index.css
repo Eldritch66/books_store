@@ -13,11 +13,6 @@ body {
   flex-direction: row;
 }
 
-h1 {
-  font-size: 2rem;
-  color: #000000;
-}
-
 header {
   text-align: center;
 }
@@ -61,6 +56,7 @@ hr {
 }
 
 .detail-header {
+  color: #555;
   text-align: center;
   margin: 2rem 2rem;
 }
@@ -75,6 +71,7 @@ hr {
 .detail-img {
   display: flex;
   flex-direction: start;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 .detail-img img {
   width: 200px;
@@ -92,6 +89,20 @@ hr {
   margin: 0.5rem 0;
   font-size: 0.9rem;
   color: #555;
+}
+
+.empty-cart {
+  width: 100%;
+  height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.empty-cart p {
+  font-family: "halvetica";
+  font-size: 2rem;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
 .addToCart {
@@ -167,4 +178,66 @@ hr {
 .nontificationModal {
   font-style: italic;
   color: #fff;
+}
+
+.cart-container {
+  width: 840px;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.books-item {
+  display: flex;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+
+.list-cart {
+  margin-bottom: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 12.5rem;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.item-list {
+  display: flex;
+  align-items: center;
+  width: 520px;
+}
+
+.item-list span {
+  text-align: center;
+}
+.cart-img {
+  height: 180px;
+  width: 200px;
+  object-fit: contain; /* ✅ show full cover */
+}
+
+.amountAndCheckOut {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: center;
+  width: 200px;
+  height: 200px;
+}
+
+.buttonAmount button {
+  all: unset;
+  margin-right: 1rem;
+  margin-left: 1rem;
+  cursor: pointer;
+  font-size: 1.5rem;
+}
+
+.delete-item {
+  all: unset;
+  font-size: 2rem;
+  margin-right: 2rem;
+  cursor: pointer;
 }

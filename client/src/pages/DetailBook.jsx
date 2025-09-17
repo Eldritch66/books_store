@@ -29,7 +29,10 @@ export default function Detail() {
           <div className="modalTitle">
             <strong>Book: </strong>
             <h4>
-              {bookInfo.title} <br />
+              {bookInfo.title.length > 20
+                ? bookInfo.title.slice(0, 20) + "..."
+                : bookInfo.title}
+              <br />
             </h4>
             <hr className="lineModal" />
             <span className="nontificationModal">already add to cart!</span>
