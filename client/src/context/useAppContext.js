@@ -2,5 +2,8 @@ import { useContext } from "react";
 import { BookContext } from "./bookContext";
 
 export function useAppContext() {
-  return useContext(BookContext);
+  const context = useContext(BookContext);
+  if (context === undefined)
+    throw new Error("your using context outside provider!");
+  return context;
 }
