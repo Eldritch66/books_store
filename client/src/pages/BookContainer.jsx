@@ -3,10 +3,7 @@ import { useAppContext } from "../context/useAppContext";
 
 export default function BookContainer() {
   const { state, dispatch } = useAppContext();
-  // console.log("dataBook:", dataBook);
-  console.log("useAppContext:", useAppContext());
 
-  console.log(state.dataBook);
   return (
     <>
       <section className="book-container">

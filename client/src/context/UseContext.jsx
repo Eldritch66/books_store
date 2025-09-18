@@ -1,4 +1,4 @@
-import { useReducer } from "react";
+import { useReducer, useEffect } from "react";
 import { BookContext } from "./bookContext";
 
 const initialState = {
@@ -8,8 +8,6 @@ const initialState = {
 };
 
 function reducer(state, action) {
-  console.log("Reducer called with:", action);
-
   switch (action.type) {
     case "dataReceived":
       return { ...state, dataBook: action.payload };
@@ -81,6 +79,21 @@ function reducer(state, action) {
 
 export function AppProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState);
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await fetch("http://localhost:3000/books");
+        if (!response.ok) throw new Error("Failed to fetch");
+        const data = await response.json();
+        // console.log("Fetched data:", data);
+
+        dispatch({ type: "dataReceived", payload: data });
+      } catch (err) {
+        dispatch({ type: "error", payload: err.message });
+      }
+    }
+    fetchData();
+  }, [dispatch]);
 
   return (
     <BookContext.Provider value={{ state, dispatch }}>
