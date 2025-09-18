@@ -14,7 +14,7 @@ export default function Header() {
       setTitle("Book Detail");
     }
     if (location.pathname.startsWith("/cart")) {
-      setTitle("Your Cart");
+      setTitle("CART");
     }
   }, [location.pathname]);
 

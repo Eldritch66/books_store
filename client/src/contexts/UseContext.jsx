@@ -4,7 +4,7 @@ import { BookContext } from "./bookContext";
 const initialState = {
   dataBook: [],
   isCartOpen: false,
-  cart: [],
+  cart: JSON.parse(localStorage.getItem("cart")) || [],
 };
 
 function reducer(state, action) {
@@ -85,7 +85,6 @@ export function AppProvider({ children }) {
         const response = await fetch("http://localhost:3000/books");
         if (!response.ok) throw new Error("Failed to fetch");
         const data = await response.json();
-        // console.log("Fetched data:", data);
 
         dispatch({ type: "dataReceived", payload: data });
       } catch (err) {
@@ -94,6 +93,10 @@ export function AppProvider({ children }) {
     }
     fetchData();
   }, [dispatch]);
+
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(state.cart));
+  }, [state.cart]);
 
   return (
     <BookContext.Provider value={{ state, dispatch }}>
