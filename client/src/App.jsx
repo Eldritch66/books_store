@@ -7,16 +7,16 @@ import Header from "./components/Header";
 
 function App() {
   return (
-    <AppProvider>
-      <BrowserRouter>
+    <BrowserRouter>
+      <AppProvider>
         <Header />
         <Routes>
           <Route path="/" element={<BookContainer />} />
           <Route path="/detail/:id" element={<Detail />} />
           <Route path="/cart" element={<Cart />} />
         </Routes>
-      </BrowserRouter>
-    </AppProvider>
+      </AppProvider>
+    </BrowserRouter>
   );
 }
 

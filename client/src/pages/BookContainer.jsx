@@ -2,7 +2,7 @@ import { Link } from "react-router";
 import { useAppContext } from "../contexts/useAppContext";
 
 export default function BookContainer() {
-  const { state, dispatch } = useAppContext();
+  const { state } = useAppContext();
 
   return (
     <>
@@ -10,11 +10,7 @@ export default function BookContainer() {
         {state.dataBook.map((book) => (
           <Link className="list-style" to={`/detail/${book.id}`} key={book.id}>
             <ul className="book-list">
-              <li
-                onClick={() =>
-                  dispatch({ type: "handleDetail", payload: book })
-                }
-              >
+              <li>
                 <main className="book-title">
                   {book.title.length > 20
                     ? book.title.slice(0, 20) + "..."

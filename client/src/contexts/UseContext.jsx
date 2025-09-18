@@ -5,6 +5,7 @@ const initialState = {
   dataBook: [],
   isCartOpen: false,
   cart: JSON.parse(localStorage.getItem("cart")) || [],
+  error: "",
 };
 
 function reducer(state, action) {
@@ -13,16 +14,6 @@ function reducer(state, action) {
       return { ...state, dataBook: action.payload };
     case "openCart":
       return { ...state, isCartOpen: !state.isCartOpen };
-    case "handleDetail": {
-      if (state.selectBook === action.payload.id) {
-        return { ...state, selectBook: null, detail: null };
-      }
-      return {
-        ...state,
-        selectBook: action.payload.id,
-        detail: action.payload,
-      };
-    }
     case "handleCart": {
       if (!state.cart) return state;
       const book = action.payload;
@@ -74,6 +65,9 @@ function reducer(state, action) {
         cart: cartDelete,
       };
     }
+
+    case "error":
+      return { ...state, error: action.payload };
   }
 }
 
