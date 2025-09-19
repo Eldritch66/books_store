@@ -2,6 +2,7 @@ import { useParams } from "react-router";
 import { FaCartArrowDown } from "react-icons/fa6";
 import { useAppContext } from "../contexts/useAppContext";
 import { useState } from "react";
+import { formatRupiah } from "../utils/formarRupiah";
 
 export default function Detail() {
   const { state, dispatch } = useAppContext();
@@ -70,6 +71,11 @@ export default function Detail() {
               Summary: <br />
             </strong>
             <p>{bookInfo.summary}</p>
+          </span>
+
+          <span className="price-detail-book">
+            <strong>Price: </strong>
+            <p>{formatRupiah(bookInfo.price)}</p>
           </span>
         </div>
 

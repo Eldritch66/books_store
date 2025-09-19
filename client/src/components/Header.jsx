@@ -2,10 +2,12 @@ import Navbar from "./Navbar";
 import { useLocation } from "react-router";
 import { useEffect, useState } from "react";
 import styles from "./header.module.css";
+import { useAppContext } from "../contexts/useAppContext";
 
 export default function Header() {
   const [title, setTitle] = useState("");
   const location = useLocation();
+  const { state } = useAppContext();
 
   useEffect(() => {
     if (location.pathname === "/") {
@@ -26,11 +28,15 @@ export default function Header() {
     if (location.pathname.startsWith("/cart")) {
       setTitle(
         <>
-          <h2>CART</h2>
+          {state.cart.length === 0 ? (
+            <h2>YOUR CART IS EMPTY!</h2>
+          ) : (
+            <h2>CART</h2>
+          )}
         </>
       );
     }
-  }, [location.pathname]);
+  }, [location.pathname, state]);
 
   return (
     <>

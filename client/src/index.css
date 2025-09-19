@@ -58,6 +58,7 @@ hr {
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
+/*================ DETAIL PAGE START =============== */
 .detail-header {
   color: #555;
   text-align: center;
@@ -90,6 +91,12 @@ hr {
 
 .span-detail {
   margin: 0.5rem 0;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.price-detail-book {
+  margin-top: 1.5rem;
   font-size: 0.9rem;
   color: #555;
 }
@@ -184,6 +191,7 @@ hr {
   font-style: italic;
   color: #000000;
 }
+/*================ DETAIL PAGE END =============== */
 
 .cart-container {
   width: 840px;

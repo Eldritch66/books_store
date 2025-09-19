@@ -13,11 +13,7 @@ export default function Cart() {
   return (
     <section className="cart-container">
       <div className="books-item"></div>
-      {cart.length === 0 ? (
-        <div className="empty-cart">
-          <p>cart is empty</p>
-        </div>
-      ) : (
+      {cart.length > 0 &&
         cart.map((item, index) => (
           <ul className="list-cart" key={index}>
             <Link to={`/detail/${item.id}`} className="no-list-style">
@@ -55,8 +51,7 @@ export default function Cart() {
               &times;
             </button>
           </ul>
-        ))
-      )}
+        ))}
       {cart.length > 0 && (
         <div className="price-items">
           <div className="sub-price-items">
