@@ -6,12 +6,15 @@ const initialState = {
   isCartOpen: false,
   cart: JSON.parse(localStorage.getItem("cart")) || [],
   error: "",
+  isLoading: false,
 };
 
 function reducer(state, action) {
   switch (action.type) {
+    case "dataRequest":
+      return { ...state, isLoading: true };
     case "dataReceived":
-      return { ...state, dataBook: action.payload };
+      return { ...state, dataBook: action.payload, isLoading: false };
     case "openCart":
       return { ...state, isCartOpen: !state.isCartOpen };
     case "handleCart": {
@@ -67,7 +70,7 @@ function reducer(state, action) {
     }
 
     case "error":
-      return { ...state, error: action.payload };
+      return { ...state, error: action.payload, isLoading: false };
   }
 }
 
@@ -75,6 +78,8 @@ export function AppProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState);
   useEffect(() => {
     async function fetchData() {
+      dispatch({ type: "dataRequest" }); // Set isLoading to true
+
       try {
         const response = await fetch("http://localhost:3000/books");
         if (!response.ok) throw new Error("Failed to fetch");
