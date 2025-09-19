@@ -1,7 +1,8 @@
 import { Link, useLocation } from "react-router";
 import { MdOutlineShoppingCart } from "react-icons/md";
 import { FaBackspace } from "react-icons/fa";
-import styles from "./Navbar.module.css";
+
+import styles from "./navbar.module.css";
 
 export default function Navbar() {
   const location = useLocation();

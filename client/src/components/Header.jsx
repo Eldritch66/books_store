@@ -1,6 +1,7 @@
 import Navbar from "./Navbar";
 import { useLocation } from "react-router";
 import { useEffect, useState } from "react";
+import styles from "./header.module.css";
 
 export default function Header() {
   const [title, setTitle] = useState("");
@@ -8,20 +9,35 @@ export default function Header() {
 
   useEffect(() => {
     if (location.pathname === "/") {
-      setTitle("Welcome To The Book Store!");
+      setTitle(
+        <>
+          <h2 className={styles["title-h2"]}>BOOK TOLSTOY</h2>
+          <p className="subtitle">online shop alternative literatur</p>
+        </>
+      );
     }
     if (location.pathname.startsWith("/detail")) {
-      setTitle("Book Detail");
+      setTitle(
+        <>
+          <h2>DETAIL</h2>
+        </>
+      );
     }
     if (location.pathname.startsWith("/cart")) {
-      setTitle("CART");
+      setTitle(
+        <>
+          <h2>CART</h2>
+        </>
+      );
     }
   }, [location.pathname]);
 
   return (
-    <header>
-      <h2>{title}</h2>
+    <>
+      <header className={styles["header"]}>
+        <main className={styles["main-title"]}>{title}</main>
+      </header>
       <Navbar />
-    </header>
+    </>
   );
 }
