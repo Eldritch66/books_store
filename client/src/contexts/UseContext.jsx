@@ -78,7 +78,7 @@ export function AppProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState);
   useEffect(() => {
     async function fetchData() {
-      dispatch({ type: "dataRequest" }); // Set isLoading to true
+      dispatch({ type: "dataRequest" });
 
       try {
         const response = await fetch("http://localhost:3000/books");
