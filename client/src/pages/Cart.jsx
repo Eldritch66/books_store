@@ -6,58 +6,72 @@ export default function Cart() {
   const { state, dispatch } = useAppContext();
   const { cart } = state;
 
-  const subtotal = cart.reduce((acc, item) => acc + item.price * item.qty, 0);
+  const checkItem = cart
+    .filter((item) => item.isCheck)
+    .reduce((acc, item) => acc + item.price * item.qty, 0);
+  const shipping = checkItem === 0 ? 0 : 19000;
+  const total = checkItem + shipping;
 
-  const shipping = 19000;
-  const total = subtotal + shipping;
   return (
     <section className="cart-container">
       <div className="books-item"></div>
       {cart.length > 0 &&
         cart.map((item, index) => (
-          <ul className="list-cart" key={index}>
-            <Link to={`/detail/${item.id}`} className="no-list-style">
-              <li className="item-list">
-                <img className="cart-img" src={item.img} alt={item.title} />
-                <span>
-                  {item.title.length > 20
-                    ? item.title.slice(0, 20) + "..."
-                    : item.title}
-                </span>
-              </li>
-            </Link>
-            <span>{formatRupiah(item.price * item.qty)}</span>
+          <div className="list-container">
+            <ul className="list-cart" key={index}>
+              <Link to={`/detail/${item.id}`} className="no-list-style">
+                <li className="item-list">
+                  <img className="cart-img" src={item.img} alt={item.title} />
+                  <span>
+                    {item.title.length > 20
+                      ? item.title.slice(0, 20) + "..."
+                      : item.title}
+                  </span>
+                </li>
+              </Link>
+              <span>{formatRupiah(item.price * item.qty)}</span>
 
-            <div className="amountAndCheckOut">
-              <div className="buttonAmount">
-                <button
-                  onClick={() => dispatch({ type: "decQty", payload: item })}
-                >
-                  -
-                </button>
+              <div className="amountAndCheckOut">
+                <div className="buttonAmount">
+                  <button
+                    onClick={() => dispatch({ type: "decQty", payload: item })}
+                  >
+                    -
+                  </button>
 
-                <strong>{item.qty}</strong>
-                <button
-                  onClick={() => dispatch({ type: "incQty", payload: item })}
-                >
-                  +
-                </button>
+                  <strong>{item.qty}</strong>
+                  <button
+                    onClick={() => dispatch({ type: "incQty", payload: item })}
+                  >
+                    +
+                  </button>
+                </div>
               </div>
-            </div>
-            <button
-              className="delete-item"
-              onClick={() => dispatch({ type: "deleteItem", payload: item.id })}
-            >
-              &times;
-            </button>
-          </ul>
+              <button
+                className="delete-item"
+                onClick={() =>
+                  dispatch({ type: "deleteItem", payload: item.id })
+                }
+              >
+                &times;
+              </button>
+            </ul>
+            <input
+              type="checkbox"
+              value={item.id}
+              className="isCheck"
+              onClick={() =>
+                dispatch({ type: "toggleCheckItem", payload: item.id })
+              }
+            />
+          </div>
         ))}
       {cart.length > 0 && (
         <div className="price-items">
           <div className="sub-price-items">
             <span className="sub-total">
               <span>Subtotal</span>
-              <span>{formatRupiah(subtotal)}</span>
+              <span>{formatRupiah(checkItem)}</span>
             </span>
             <span className="shipping">
               <span>Shipping </span>

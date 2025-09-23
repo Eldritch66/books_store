@@ -7,6 +7,7 @@ const initialState = {
   cart: JSON.parse(localStorage.getItem("cart")) || [],
   error: "",
   isLoading: false,
+  isCheck: false,
 };
 
 function reducer(state, action) {
@@ -66,6 +67,16 @@ function reducer(state, action) {
       return {
         ...state,
         cart: cartDelete,
+      };
+    }
+
+    case "toggleCheckItem": {
+      const itemId = action.payload;
+      return {
+        ...state,
+        cart: state.cart.map((item) =>
+          item.id === itemId ? { ...item, isCheck: !item.isCheck } : item
+        ),
       };
     }
 

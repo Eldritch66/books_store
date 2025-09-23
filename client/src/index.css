@@ -206,6 +206,12 @@ hr {
   box-sizing: border-box;
 }
 
+.list-container {
+  width: 900px;
+  display: flex;
+  flex-direction: row;
+}
+
 .list-cart {
   text-decoration: none;
   list-style: none;
@@ -214,7 +220,7 @@ hr {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
+  width: 840px;
   height: 12.5rem;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
@@ -262,6 +268,15 @@ hr {
   font-size: 2rem;
   margin-right: 2rem;
   cursor: pointer;
+}
+
+.isCheck {
+  width: 2rem;
+  margin-left: 1rem;
+}
+
+.isCheck:checked {
+  accent-color: #002b3a;
 }
 
 .price-items {
