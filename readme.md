@@ -24,9 +24,18 @@ This project showcases core frontend skills such as **routing, state management,
 
 - [ ] Pagination on book list page
 - [ ] Search & filter books
-- [ ] Improve cart with checkbox selection
 
+## Pages
+
+- Landing Page
 ![App Screenshot](./client/public/landing-page.png)
+
+- Detail Page
 ![App Screenshot](./client/public/detail-page.png)
+
+- Cart Page
 ![App Screenshot](./client/public/cart-page.png)
+
+- Modal
 ![App Screenshot](./client/public/modal.png)
+
