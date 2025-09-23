@@ -9,6 +9,7 @@ export default function Cart() {
   const checkItem = cart
     .filter((item) => item.isCheck)
     .reduce((acc, item) => acc + item.price * item.qty, 0);
+  // const shipping = checkItem === 0 ? 0 : 19000;
   const shipping = checkItem === 0 ? 0 : 19000;
   const total = checkItem + shipping;
 
@@ -58,9 +59,9 @@ export default function Cart() {
             </ul>
             <input
               type="checkbox"
-              value={item.id}
               className="isCheck"
-              onClick={() =>
+              checked={item.isCheck}
+              onChange={() =>
                 dispatch({ type: "toggleCheckItem", payload: item.id })
               }
             />
