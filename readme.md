@@ -11,6 +11,8 @@ This project showcases core frontend skills such as **routing, state management,
 - Global state with Context API + useReducer
 - Custom hook `useAppContext` for clean state access
 - Basic CSS styling (no UI framework)
+- Loading Screen
+- Check Item
 
 ## 🛠️ Tech Stack
 
@@ -38,4 +40,5 @@ This project showcases core frontend skills such as **routing, state management,
 
 - Modal
 ![App Screenshot](./client/public/modal.png)
+
 
