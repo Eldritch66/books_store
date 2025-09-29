@@ -7,7 +7,7 @@ This project showcases core frontend skills such as **routing, state management,
 
 - Fetch and display books from API
 - Book detail page with add-to-cart modal
-- Shopping cart (increase/decrease qty, delete item, calculate total)
+- Shopping cart (increase/decrease qty, delete item, calculate total, check items books)
 - Global state with Context API + useReducer
 - Custom hook `useAppContext` for clean state access
 - Basic CSS styling (no UI framework)
@@ -28,14 +28,13 @@ This project showcases core frontend skills such as **routing, state management,
 ## Pages
 
 - Landing Page
-![App Screenshot](./client/public/landing-page.png)
+  ![App Screenshot](./client/public/landing-page.png)
 
 - Detail Page
-![App Screenshot](./client/public/detail-page.png)
+  ![App Screenshot](./client/public/detail-page.png)
 
 - Cart Page
-![App Screenshot](./client/public/cart-page.png)
+  ![App Screenshot](./client/public/cart-pagee.png)
 
 - Modal
-![App Screenshot](./client/public/modal.png)
-
+  ![App Screenshot](./client/public/modal.png)
